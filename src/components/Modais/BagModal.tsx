@@ -23,7 +23,7 @@ import {
   useImperativeHandle,
   useState,
 } from 'react';
-import { BsFillTrashFill } from 'react-icons/bs';
+import { BsBag, BsFillTrashFill } from 'react-icons/bs';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiShoppingCart } from 'react-icons/fi';
@@ -173,16 +173,8 @@ const BagModal: ForwardRefRenderFunction<IBagModal> = (props, ref) => {
   return (
     <Flex>
       <Box cursor="pointer" onClick={onOpen} zIndex={2}>
-        <Flex
-          flexDir="column"
-          justify="center"
-          align="center"
-          fill="white"
-          bg="gray.800"
-          w={['4rem', '4rem', '4rem', '4rem']}
-          h={['4rem', '4rem', '4rem']}
-        >
-          <FiShoppingCart size="30" />
+        <Flex flexDir="column" justify="center" align="center" fill="white">
+          <BsBag size={40} />
         </Flex>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose}>

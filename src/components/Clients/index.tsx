@@ -20,6 +20,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { BsPerson } from 'react-icons/bs';
 import { withSSRAuth } from '../../utils/WithSSRAuth';
 import { formatPrice } from '../../utils/format';
 import { createClient, useClients } from '../../services/hooks/useClients';
@@ -91,17 +92,11 @@ export const Clients = () => {
   };
 
   return (
-    <Flex flexDir="column" align="flex-start" mb={['1rem', '1rem', 0]}>
+    <Flex flexDir="column" align="flex-end" w="100%" mr="1rem">
       <DetailsClientsShop client={client} ref={modalDetailsAllShop} />
-      <Heading
-        cursor="pointer"
-        size="md"
-        p="1rem"
-        onClick={() => onOpen()}
-        bg="gray.700"
-      >
-        Clientes
-      </Heading>
+
+      <BsPerson cursor="pointer" size={45} onClick={() => onOpen()} />
+
       <Modal size={['md', 'md', '2xl']} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent bg="gray.900">

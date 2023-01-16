@@ -14,6 +14,7 @@ import {
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { FiShoppingCart } from 'react-icons/fi';
+import { BsBagPlus, BsColumnsGap } from 'react-icons/bs';
 import { withSSRAuth } from '../../utils/WithSSRAuth';
 
 import BagModal, { IBagModal } from '../Modais/BagModal';
@@ -74,15 +75,10 @@ export const Products = () => {
       <EditProductModal product={product} ref={modalEditProduct} />
       <CreateProductModal ref={modalCreateProduct} />
       <HStack align="center" p="2rem">
-        <Heading
-          size="md"
-          mt="0.4rem"
-          mr="1rem"
-          cursor="pointer"
+        <BsColumnsGap
+          size={45}
           onClick={() => modalCreateProduct.current.onOpen()}
-        >
-          Produtos
-        </Heading>
+        />
         <Input
           name="productFilterName"
           onChange={e => setFilterProductName(e.target.value)}
@@ -150,13 +146,12 @@ export const Products = () => {
                       onClick={() => addProduct(product.id)}
                       cursor="pointer"
                       align="center"
-                      bg="gray.800"
                       _hover={{
                         background: '#FF6B00',
                       }}
                       transition={['background 200ms']}
                     >
-                      <FiShoppingCart cursor="pointer" size={30} />
+                      <BsBagPlus cursor="pointer" size={30} />
                     </Td>
                   </Tr>
                 ))}
