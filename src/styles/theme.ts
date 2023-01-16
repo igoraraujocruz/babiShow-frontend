@@ -2,12 +2,9 @@ import { extendTheme } from '@chakra-ui/react';
 
 export const theme = extendTheme({
   colors: {
-    gray: {
-      '900': '#181B23',
-      '50': '#EEEEF2',
-    },
-    orange: '#FF6B00',
-    orangeHover: '#FF4500',
+    'color-bg': '#F5EBE0',
+    'color-icons': '#655E56',
+    'color-input-bg': '#D5BDAF',
   },
   fonts: {
     heading: 'Anek Devanagari',
@@ -16,8 +13,8 @@ export const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: 'gray.900',
-        color: 'gray.50',
+        bg: 'color-bg',
+        color: 'color-icons',
       },
     },
   },

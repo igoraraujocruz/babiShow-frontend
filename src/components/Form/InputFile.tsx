@@ -55,9 +55,6 @@ const InputFileBase: ForwardRefRenderFunction<
       align="center"
       onChange={onFileChange}
       {...rest}
-      bg="#181B23"
-      borderRadius="2rem"
-      border={`0.2rem solid ${images.length > 0 ? '#FF6B00' : '#181B23'}`}
     >
       <ChakraFileInput
         accept="image/png, image/jpeg, image/jpg"

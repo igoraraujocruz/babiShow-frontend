@@ -1,7 +1,6 @@
 import {
   Button,
   Flex,
-  Heading,
   HStack,
   Modal,
   ModalBody,
@@ -13,10 +12,9 @@ import {
   Text,
   useDisclosure,
   VStack,
-  Input,
   useToast,
 } from '@chakra-ui/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -28,6 +26,7 @@ import DetailsClientsShop, {
   DetailsClientsShopHandle,
 } from '../Modais/DetailsClientsShop';
 import { queryClient } from '../../services/queryClient';
+import { Input } from '../Form/Input';
 
 interface Shop {
   id: string;
@@ -99,11 +98,11 @@ export const Clients = () => {
 
       <Modal size={['md', 'md', '2xl']} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent bg="gray.900">
+        <ModalContent bg="color-bg">
           <ModalCloseButton
-            bg="orange"
-            _hover={{ bg: 'orangeHover' }}
-            color="#fff"
+            size="lg"
+            _hover={{ bg: 'none' }}
+            color="color-icons"
           />
           <ModalHeader />
           <ModalBody>
@@ -188,9 +187,9 @@ export const Clients = () => {
               <Input name="name" {...register('name')} />
               <Button
                 type="submit"
-                bg="orange"
+                bg="color-input-bg"
                 _hover={{
-                  bg: 'orangeHover',
+                  bg: 'color-input-bg',
                 }}
               >
                 Criar

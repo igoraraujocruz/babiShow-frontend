@@ -175,15 +175,11 @@ const DetailsClientsShop: ForwardRefRenderFunction<
   };
 
   return (
-    <Flex>
+    <Flex bg="red">
       <Modal size={['md', 'md', '2xl']} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent bg="gray.900">
-          <ModalCloseButton
-            bg="orange"
-            _hover={{ bg: 'orangeHover' }}
-            color="#fff"
-          />
+        <ModalContent bg="color-bg">
+          <ModalCloseButton size="lg" color="color-icons" />
           <ModalHeader />
           <ModalBody>
             <VStack spacing="1rem">
@@ -260,7 +256,7 @@ const DetailsClientsShop: ForwardRefRenderFunction<
               <VStack
                 flexDir="column"
                 h="7rem"
-                color="#00fa00"
+                color="green"
                 css={{
                   '&::-webkit-scrollbar': {
                     width: '4px',
@@ -305,7 +301,7 @@ const DetailsClientsShop: ForwardRefRenderFunction<
                     onSubmit={handleSubmit(onSubmit)}
                   >
                     <MaskedInput
-                      focusBorderColor="#FF6B00"
+                      focusBorderColor="none"
                       mask={realMask}
                       error={errors.value}
                       name="value"
@@ -315,9 +311,9 @@ const DetailsClientsShop: ForwardRefRenderFunction<
                     <Flex justify="center" w="100%">
                       <Button
                         type="submit"
-                        bg="#0d0e12"
+                        bg="color-bg"
                         _hover={{
-                          bg: '#181b23',
+                          bg: '#D5BDAF',
                         }}
                       >
                         Receber Valor

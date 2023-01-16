@@ -121,11 +121,11 @@ const CreateProductModal: ForwardRefRenderFunction<
   return (
     <Modal size="xs" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent bg="gray.900">
+      <ModalContent bg="color-bg">
         <ModalCloseButton
-          bg="orange"
-          _hover={{ bg: 'orangeHover' }}
-          color="#fff"
+          size="lg"
+          _hover={{ bg: 'none' }}
+          color="color-icons"
         />
         <ModalHeader />
         <ModalBody>
@@ -162,16 +162,21 @@ const CreateProductModal: ForwardRefRenderFunction<
                   _hover={{
                     borderColor: 'none',
                   }}
-                  focusBorderColor="#FF6B00"
-                  border="0.13rem solid"
-                  borderColor="gray.600"
+                  bg="color-input-bg"
+                  focusBorderColor="none"
                   w="12rem"
                   {...register('category')}
                 >
-                  <option style={{ background: '#181B23' }} value="televisoes">
+                  <option
+                    style={{ background: 'color-input-bg' }}
+                    value="barras"
+                  >
                     Barras
                   </option>
-                  <option style={{ background: '#181B23' }} value="informatica">
+                  <option
+                    style={{ background: 'color-input-bg' }}
+                    value="trufas"
+                  >
                     Trufas
                   </option>
                 </Select>
@@ -187,11 +192,10 @@ const CreateProductModal: ForwardRefRenderFunction<
               <InputFile mt="1rem" ref={inputFileRef} />
             </Flex>
             <Button
-              bg="#FF6B00"
-              _hover={{ bg: 'orangeHover' }}
+              bg="color-input-bg"
+              _hover={{ bg: 'color-input-bg' }}
               type="submit"
-              mt="6"
-              colorScheme="orange"
+              mt="1rem"
               size="lg"
             >
               Cadastrar

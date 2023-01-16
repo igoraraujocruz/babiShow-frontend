@@ -96,7 +96,7 @@ export const Products = () => {
           },
         }}
       >
-        <Table size="small" colorScheme="whiteAlpha">
+        <Table size="small">
           <Thead>
             <Tr>
               <Th pl="4px" pr="4px">

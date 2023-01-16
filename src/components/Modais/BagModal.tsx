@@ -174,18 +174,13 @@ const BagModal: ForwardRefRenderFunction<IBagModal> = (props, ref) => {
     <Flex>
       <Box cursor="pointer" onClick={onOpen} zIndex={2}>
         <Flex flexDir="column" justify="center" align="center" fill="white">
-          <p>{cart?.length}</p>
           <BsBag size={40} />
         </Flex>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent bg="gray.900">
-          <ModalCloseButton
-            bg="orange"
-            _hover={{ bg: 'orangeHover' }}
-            color="#fff"
-          />
+        <ModalContent bg="color-bg">
+          <ModalCloseButton _hover={{ bg: 'none' }} size="lg" />
           <ModalHeader />
 
           <ModalBody>
@@ -194,20 +189,15 @@ const BagModal: ForwardRefRenderFunction<IBagModal> = (props, ref) => {
                 return (
                   <Flex key={product.id} w="100%" h="100%" mb="1rem">
                     <Image
-                      w={['9rem']}
-                      h={['10rem']}
+                      w="9rem"
+                      h="9rem"
                       src={
                         product.photos[0]
                           ? product.photos[0].url
                           : 'placeholder.png'
                       }
                     />
-                    <Flex
-                      ml="1rem"
-                      flexDir="column"
-                      fontFamily="Anek Devanagari"
-                      align="start"
-                    >
+                    <Flex ml="1rem" flexDir="column" align="start">
                       <Text w={['7.5rem', '7.5rem', '15rem']}>
                         Nome: {product.name}
                       </Text>
@@ -224,12 +214,12 @@ const BagModal: ForwardRefRenderFunction<IBagModal> = (props, ref) => {
                         flexDir={['column', 'column', 'row']}
                       >
                         <Button
-                          bg="gray.700"
-                          _hover={{ background: 'gray.900' }}
+                          bg="color-input-bg"
+                          _hover={{ background: 'color-input-bg' }}
                           h="2rem"
                           onClick={() => handleRemoveProduct(product.id)}
                         >
-                          <BsFillTrashFill color="#fff" />
+                          <BsFillTrashFill color="#655E56" />
                         </Button>
                         <Flex
                           mt="1rem"
@@ -247,20 +237,20 @@ const BagModal: ForwardRefRenderFunction<IBagModal> = (props, ref) => {
                         width="100%"
                       >
                         <Button
-                          bg="gray.700"
-                          _hover={{ background: 'gray.900' }}
+                          bg="color-input-bg"
+                          _hover={{ background: 'color-input-bg' }}
                           h="2rem"
                           onClick={() => handleProductDecrement(product)}
                         >
-                          <AiOutlineMinus color="#fff" />
+                          <AiOutlineMinus color="#655E56" />
                         </Button>
                         <Button
-                          bg="gray.700"
-                          _hover={{ background: 'gray.900' }}
+                          bg="color-input-bg"
+                          _hover={{ background: 'color-input-bg' }}
                           h="2rem"
                           onClick={() => handleProductIncrement(product)}
                         >
-                          <AiOutlinePlus color="#fff" />
+                          <AiOutlinePlus color="#655E56" />
                         </Button>
                       </HStack>
                     </Flex>
@@ -323,9 +313,9 @@ const BagModal: ForwardRefRenderFunction<IBagModal> = (props, ref) => {
 
                 <Flex mt="1rem" justify="center">
                   <Button
-                    color="#fff"
-                    bg="orange"
-                    _hover={{ bg: 'orangeHover' }}
+                    color="#D5BDAF"
+                    bg="color-icons"
+                    _hover={{ bg: 'color-input-bg' }}
                     type="submit"
                   >
                     Finalizar Compra

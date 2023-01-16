@@ -43,8 +43,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         onBlur={() => changeFocus()}
         onFocus={() => changeFocus()}
         align="center"
-        bg="gray.900"
-        border={focus ? '0.15rem solid #FF6B00' : '0.15rem solid #2d3748'}
+        bg="color-input-bg"
         borderRadius="0.3rem"
       >
         {Icon && (
@@ -56,10 +55,10 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           name={name}
           id={name}
           border="0"
-          bgColor={bg || 'gray.900'}
+          bgColor="color-input-bg"
           variant="filled"
           _hover={{
-            bgColor: 'gray.900',
+            bgColor: 'none',
           }}
           size="lg"
           {...rest}

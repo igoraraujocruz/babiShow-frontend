@@ -38,10 +38,6 @@ const MaskedInputBase: ForwardRefRenderFunction<
   HTMLInputElement,
   MaskedInputProps
 > = ({ name, label, error = null, icon: Icon, bg, mask, ...rest }, ref) => {
-  const [focus, setFocus] = useState(false);
-  const changeFocus = () => {
-    setFocus(!focus);
-  };
   return (
     <FormControl isInvalid={!!error}>
       {!!label && (
@@ -51,18 +47,17 @@ const MaskedInputBase: ForwardRefRenderFunction<
       )}
       <MaskedChakraInput
         as={ReactMaskedInput}
-        onBlur={() => changeFocus()}
-        onFocus={() => changeFocus()}
         guide={false}
         mask={mask}
         name={name}
         id={name}
-        borderColor="#2d3748"
-        border={focus ? '0.15rem solid #FF6B00' : '0.15rem solid #2d3748'}
-        bgColor={bg || 'gray.900'}
+        bgColor="color-input-bg"
         variant="filled"
+        _focus={{
+          bg: 'color-input-bg',
+        }}
         _hover={{
-          bgColor: 'gray.900',
+          bgColor: 'none',
         }}
         size="lg"
         ref={data => {
