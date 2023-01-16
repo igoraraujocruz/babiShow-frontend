@@ -146,10 +146,6 @@ export const Products = () => {
                       onClick={() => addProduct(product.id)}
                       cursor="pointer"
                       align="center"
-                      _hover={{
-                        background: '#FF6B00',
-                      }}
-                      transition={['background 200ms']}
                     >
                       <BsBagPlus cursor="pointer" size={30} />
                     </Td>
