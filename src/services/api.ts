@@ -15,7 +15,7 @@ export function setupAPIClient(ctx = undefined) {
     baseURL:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3333'
-        : 'https://api.zaycon.shop',
+        : 'https://api-babi.zaycon.shop',
     headers: {
       Authorization: `Bearer ${cookies['babi.token']}`,
     },
