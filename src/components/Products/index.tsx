@@ -1,16 +1,22 @@
 import {
   Flex,
   Heading,
+  HStack,
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
+  useToast,
 } from '@chakra-ui/react';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { FiShoppingCart } from 'react-icons/fi';
 import { withSSRAuth } from '../../utils/WithSSRAuth';
+
+import BagModal, { IBagModal } from '../Modais/BagModal';
 
 import EditProductModal, {
   ContractEditProductModal,
@@ -20,8 +26,10 @@ import CreateProductModal, {
   ContractCreateProductModal,
 } from '../Modais/CreateProductModal';
 
-import { useProducts } from '../../services/hooks/useProducts';
+import { Product, useProducts } from '../../services/hooks/useProducts';
 import { Input } from '../Form/Input';
+import { useCart } from '../../services/hooks/useCart';
+import { formatPrice } from '../../utils/format';
 
 interface ProductProps {
   id: string;
@@ -32,8 +40,8 @@ interface ProductProps {
   amount: number;
   points: number;
   createdAt: string;
-  destaque: boolean;
   category: string;
+  cost: number;
   photos: [
     {
       id: string;
@@ -46,6 +54,7 @@ interface ProductProps {
 export const Products = () => {
   const [filterProductName, setFilterProductName] = useState('');
   const modalEditProduct = useRef<ContractEditProductModal>(null);
+  const { addProduct } = useCart();
 
   const modalCreateProduct = useRef<ContractCreateProductModal>(null);
 
@@ -58,40 +67,32 @@ export const Products = () => {
     modalEditProduct.current.onOpen();
   }, []);
 
+  const bagModal = useRef<IBagModal>(null);
+
   return (
     <Flex flexDir="column" align="center" mt={['1rem']} ml="2rem" mr="2rem">
       <EditProductModal product={product} ref={modalEditProduct} />
       <CreateProductModal ref={modalCreateProduct} />
-      <Flex align="center">
-        <Flex
-          bg="gray.800"
-          borderRadius={50}
-          mr="0.5rem"
-          transition="background 200ms"
-          _hover={{
-            bg: 'orangeHover',
-          }}
+      <HStack align="center" p="2rem">
+        <Heading
+          size="md"
+          mt="0.4rem"
+          mr="1rem"
+          cursor="pointer"
+          onClick={() => modalCreateProduct.current.onOpen()}
         >
-          <AiOutlinePlus
-            size={32}
-            cursor="pointer"
-            onClick={() => modalCreateProduct.current.onOpen()}
-          />
-        </Flex>
-
-        <Heading size="md" mt="0.4rem" mr="1rem">
           Produtos
         </Heading>
         <Input
           name="productFilterName"
           onChange={e => setFilterProductName(e.target.value)}
         />
-      </Flex>
+        <BagModal ref={bagModal} />
+      </HStack>
       <Flex
         align="flex-end"
         maxH={['30rem', '30rem', '40rem']}
         flexDir="column"
-        w={['18rem', '18rem', '25rem']}
         overflow="scroll"
         sx={{
           '::-webkit-scrollbar': {
@@ -99,13 +100,18 @@ export const Products = () => {
           },
         }}
       >
-        <Table colorScheme="whiteAlpha">
+        <Table size="small" colorScheme="whiteAlpha">
           <Thead>
             <Tr>
-              <Th>Nome do Produto</Th>
-              <Th>Preço</Th>
-              <Th>Estoque</Th>
-              <Th>Pontos</Th>
+              <Th pl="4px" pr="4px">
+                Nome
+              </Th>
+              <Th pl="4px" pr="4px">
+                Preço
+              </Th>
+              <Th pl="4px" pr="4px">
+                Estoque
+              </Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -128,12 +134,30 @@ export const Products = () => {
                     color={product.amount < 3 && 'red'}
                     key={product.id}
                     cursor="pointer"
-                    onClick={() => handleModal(product)}
                   >
-                    <Td>{product.name}</Td>
-                    <Td>R$ {product.price}</Td>
-                    <Td>{product.amount}</Td>
-                    <Td>{product.points}</Td>
+                    <Td pl="4px" pr="30px" onClick={() => handleModal(product)}>
+                      {product.name}
+                    </Td>
+                    <Td pl="4px" pr="30px" onClick={() => handleModal(product)}>
+                      {formatPrice(product.price)}
+                    </Td>
+                    <Td pl="4px" pr="30px" onClick={() => handleModal(product)}>
+                      {product.amount}
+                    </Td>
+                    <Td
+                      p="0.8rem"
+                      borderRadius="0.2rem"
+                      onClick={() => addProduct(product.id)}
+                      cursor="pointer"
+                      align="center"
+                      bg="gray.800"
+                      _hover={{
+                        background: '#FF6B00',
+                      }}
+                      transition={['background 200ms']}
+                    >
+                      <FiShoppingCart cursor="pointer" size={30} />
+                    </Td>
                   </Tr>
                 ))}
           </Tbody>

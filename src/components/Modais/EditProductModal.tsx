@@ -41,8 +41,9 @@ import {
 import { InputFile, InputFileHandle } from '../Form/InputFile';
 import DeleteModal, { ModalDeleteHandle } from './DeleteModal';
 import { Input } from '../Form/Input';
-import { Textarea } from '../Form/TextArea';
 import { api } from '../../services/apiClient';
+import { MaskedInput } from '../Form/MaskedInput';
+import { realMask } from '../../utils/realMask';
 
 interface ProductProps {
   product: {
@@ -54,8 +55,8 @@ interface ProductProps {
     amount: number;
     points: number;
     createdAt: string;
-    destaque: boolean;
     category: string;
+    cost: number;
     photos: [
       {
         id: string;
@@ -66,18 +67,14 @@ interface ProductProps {
   };
 }
 
-type CreateFormData = {
-  photos: File[];
-};
-
 type EditFormData = {
   name: string;
   description: string;
   price: number;
   amount: number;
   points: number;
-  destaque: boolean;
   category: string;
+  cost: number;
 };
 
 export interface ContractEditProductModal {
@@ -103,7 +100,13 @@ const DetailsProductModal: ForwardRefRenderFunction<
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { register, handleSubmit, getValues, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm({
     defaultValues: useMemo(() => {
       return product;
     }, [product]),
@@ -154,12 +157,10 @@ const DetailsProductModal: ForwardRefRenderFunction<
       await updateProduct({
         id: product.id,
         name: getValues('name'),
-        description: getValues('description'),
         price: getValues('price'),
-        points: getValues('points'),
         amount: getValues('amount'),
-        destaque: getValues('destaque'),
         category: getValues('category'),
+        cost: getValues('cost'),
       });
       toast({
         title: 'Produto atualizado com sucesso!',
@@ -167,6 +168,7 @@ const DetailsProductModal: ForwardRefRenderFunction<
         duration: 2000,
         isClosable: true,
       });
+      onClose();
     } catch (error) {
       toast({
         title: 'Não foi possível atualizar o produto',
@@ -181,7 +183,7 @@ const DetailsProductModal: ForwardRefRenderFunction<
   return (
     <Flex>
       <DeleteModal ref={deleteModalRef} photoId={photoId} />
-      <Modal size="6xl" isOpen={isOpen} onClose={onClose}>
+      <Modal size="xs" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent bg="gray.900">
           <ModalCloseButton
@@ -191,20 +193,14 @@ const DetailsProductModal: ForwardRefRenderFunction<
           />
           <ModalHeader />
           <ModalBody>
-            <Flex flexDir={['column', 'column', 'row']} justify="space-between">
+            <Flex flexDir={['column']} justify="space-between">
               <Flex
-                minW="20rem"
                 pr="0.5rem"
-                maxW={800}
                 flexDir="column"
                 as="form"
                 onSubmit={handleSubmit(editSubmit)}
               >
                 <Stack spacing="0.5">
-                  <Checkbox {...register('destaque')} colorScheme="green">
-                    Destacar
-                  </Checkbox>
-
                   <FormControl h="5rem">
                     <Text mt="0.5rem">Categoria</Text>
                     <Select
@@ -221,22 +217,13 @@ const DetailsProductModal: ForwardRefRenderFunction<
                         style={{ background: '#181B23' }}
                         value="televisoes"
                       >
-                        Televisões
+                        Barras
                       </option>
                       <option
                         style={{ background: '#181B23' }}
                         value="informatica"
                       >
-                        Informática
-                      </option>
-                      <option style={{ background: '#181B23' }} value="som">
-                        Audio
-                      </option>
-                      <option
-                        style={{ background: '#181B23' }}
-                        value="utilitarios"
-                      >
-                        Utilitários
+                        Trufas
                       </option>
                     </Select>
                   </FormControl>
@@ -247,36 +234,24 @@ const DetailsProductModal: ForwardRefRenderFunction<
                     {...register('name')}
                     placeholder={product.name}
                   />
-                  <Input
-                    bg="gray.800"
-                    name="price"
-                    label="Preço"
-                    {...register('price')}
-                  />
-                  <Textarea
-                    bg="gray.800"
-                    css={{
-                      '&::-webkit-scrollbar': {
-                        width: '4px',
-                      },
-                      '&::-webkit-scrollbar-track': {
-                        width: '6px',
-                      },
-                      '&::-webkit-scrollbar-thumb': {
-                        background: '#FF6B00',
-                        borderRadius: '24px',
-                      },
-                    }}
-                    name="description"
-                    label="Descrição"
-                    {...register('description')}
-                  />
-                  <Input
-                    bg="gray.800"
-                    name="points"
-                    label="Pontos"
-                    {...register('points')}
-                  />
+                  <HStack>
+                    <MaskedInput
+                      focusBorderColor="#FF6B00"
+                      mask={realMask}
+                      error={errors.cost}
+                      name="cost"
+                      label="Custo"
+                      {...register('cost')}
+                    />
+                    <MaskedInput
+                      focusBorderColor="#FF6B00"
+                      mask={realMask}
+                      error={errors.price}
+                      name="price"
+                      label="Preço"
+                      {...register('price')}
+                    />
+                  </HStack>
                   <Input
                     bg="gray.800"
                     name="amount"
@@ -295,14 +270,7 @@ const DetailsProductModal: ForwardRefRenderFunction<
                   Salvar
                 </Button>
               </Flex>
-              <Flex
-                minW="20rem"
-                maxW="48rem"
-                flexDir="column"
-                mt={['2rem', '2rem', 0, 0]}
-                bg="gray.800"
-                borderRadius={8}
-              >
+              <Flex flexDir="column" mt={['2rem']} bg="gray.800">
                 <Flex justify="center" w="100%" align="center" h="2rem">
                   {!isLoading && isFetching && <Spinner size="md" />}
                 </Flex>
@@ -310,8 +278,7 @@ const DetailsProductModal: ForwardRefRenderFunction<
                 <Flex flexDir="column" justify="space-between">
                   <Flex
                     wrap="wrap"
-                    minW={['20rem', '20rem', '48rem']}
-                    h="24.4rem"
+                    h="5rem"
                     css={{
                       '&::-webkit-scrollbar': {
                         width: '4px',
@@ -384,18 +351,6 @@ const DetailsProductModal: ForwardRefRenderFunction<
               </Flex>
             </Flex>
           </ModalBody>
-
-          <ModalFooter>
-            <Button
-              color="#fff"
-              bg="orange"
-              _hover={{ bg: 'orangeHover' }}
-              mr={3}
-              onClick={onClose}
-            >
-              Close
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </Flex>

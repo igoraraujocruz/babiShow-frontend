@@ -12,7 +12,7 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>): GetServerSideProps {
   ): Promise<GetServerSidePropsResult<P>> => {
     const cookies = parseCookies(ctx);
 
-    const token = cookies['snap.token'];
+    const token = cookies['babi.token'];
 
     if (!token) {
       return {
@@ -27,8 +27,8 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>): GetServerSideProps {
       return await fn(ctx);
     } catch (err) {
       if (err instanceof AuthTokenError) {
-        destroyCookie(ctx, 'snap.token');
-        destroyCookie(ctx, 'snap.refreshToken');
+        destroyCookie(ctx, 'babi.token');
+        destroyCookie(ctx, 'babi.refreshToken');
 
         return {
           redirect: {

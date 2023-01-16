@@ -15,6 +15,7 @@ import {
   Text,
   FormControl,
   Checkbox,
+  HStack,
 } from '@chakra-ui/react';
 import {
   forwardRef,
@@ -28,7 +29,6 @@ import * as yup from 'yup';
 import { createProduct } from '../../services/hooks/useProducts';
 import { InputFile, InputFileHandle } from '../Form/InputFile';
 import { Input } from '../Form/Input';
-import { Textarea } from '../Form/TextArea';
 import { convertRealToNumber } from '../../utils/convertRealToNumber';
 import { MaskedInput } from '../Form/MaskedInput';
 import { realMask } from '../../utils/realMask';
@@ -38,10 +38,10 @@ type CreateFormData = {
   description: string;
   amount: number;
   price: string;
+  cost: string;
   points: number;
   photos: File[];
   category: string;
-  destaque: boolean;
 };
 
 export interface ContractCreateProductModal {
@@ -52,19 +52,15 @@ export interface ContractCreateProductModal {
 const createFormSchema = yup.object().shape({
   name: yup.string().required('Nome do produto é obrigatório'),
   amount: yup.number().required('A quantidade é necessária'),
-  description: yup.string().required('Descrição do produto é obrigatória'),
   category: yup.string().required('A categoria do produto é obrigatória'),
-  destaque: yup.boolean(),
   price: yup
     .string()
     .typeError('Insira um valor')
     .required('Preço do produto é obrigatório'),
-  points: yup
-    .number()
+  cost: yup
+    .string()
     .typeError('Insira um valor')
-    .required(
-      'Informar quantos pontos são necessários para adquirir o produto',
-    ),
+    .required('O custo do produto é obrigatório'),
 });
 
 const CreateProductModal: ForwardRefRenderFunction<
@@ -95,13 +91,11 @@ const CreateProductModal: ForwardRefRenderFunction<
     try {
       await createProduct({
         name: values.name,
-        description: values.description,
         amount: values.amount,
         price: convertRealToNumber(values.price),
-        points: values.points,
         photos: inputFileRef.current.images,
         category: values.category,
-        destaque: values.destaque,
+        cost: convertRealToNumber(values.cost),
       });
 
       inputFileRef.current?.setImages([]);
@@ -112,6 +106,7 @@ const CreateProductModal: ForwardRefRenderFunction<
         duration: 2000,
         isClosable: true,
       });
+      onClose();
     } catch (error) {
       toast({
         title: 'Não foi possível cadastrar o produto',
@@ -136,23 +131,31 @@ const CreateProductModal: ForwardRefRenderFunction<
         <ModalBody>
           <Flex onSubmit={handleSubmit(onSubmit)} as="form" flexDir="column">
             <Stack spacing="0.5">
-              <Checkbox {...register('destaque')} colorScheme="green">
-                Destacar
-              </Checkbox>
               <Input
                 error={errors.name}
                 name="name"
                 label="Nome"
                 {...register('name')}
               />
-              <MaskedInput
-                focusBorderColor="#FF6B00"
-                mask={realMask}
-                error={errors.price}
-                name="price"
-                label="Preço"
-                {...register('price')}
-              />
+              <HStack>
+                <MaskedInput
+                  focusBorderColor="#FF6B00"
+                  mask={realMask}
+                  error={errors.cost}
+                  name="cost"
+                  label="Custo"
+                  {...register('cost')}
+                />
+                <MaskedInput
+                  focusBorderColor="#FF6B00"
+                  mask={realMask}
+                  error={errors.price}
+                  name="price"
+                  label="Preço"
+                  {...register('price')}
+                />
+              </HStack>
+
               <FormControl h="5rem">
                 <Text mt="0.5rem">Categoria</Text>
                 <Select
@@ -166,38 +169,18 @@ const CreateProductModal: ForwardRefRenderFunction<
                   {...register('category')}
                 >
                   <option style={{ background: '#181B23' }} value="televisoes">
-                    Televisões
+                    Barras
                   </option>
                   <option style={{ background: '#181B23' }} value="informatica">
-                    Informática
-                  </option>
-                  <option style={{ background: '#181B23' }} value="som">
-                    Audio
-                  </option>
-                  <option style={{ background: '#181B23' }} value="utilitarios">
-                    Utilitários
+                    Trufas
                   </option>
                 </Select>
               </FormControl>
-
-              <Textarea
-                error={errors.description}
-                name="description"
-                label="Descrição"
-                {...register('description')}
-              />
               <Input
                 error={errors.amount}
                 name="amount"
                 label="Quantidade"
                 {...register('amount')}
-              />
-              <Input
-                type="number"
-                error={errors.points}
-                name="points"
-                label="Pontos"
-                {...register('points')}
               />
             </Stack>
             <Flex justify="center">

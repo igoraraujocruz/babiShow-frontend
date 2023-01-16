@@ -53,8 +53,6 @@ const InputFileBase: ForwardRefRenderFunction<
       flexDir="column"
       justify="center"
       align="center"
-      w="10rem"
-      h="6rem"
       onChange={onFileChange}
       {...rest}
       bg="#181B23"

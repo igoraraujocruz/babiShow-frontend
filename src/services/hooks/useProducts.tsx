@@ -5,14 +5,12 @@ import { queryClient } from '../queryClient';
 export interface Product {
   id: string;
   name: string;
-  description: string;
   amount: number;
   price: number;
   slug: string;
-  points: number;
   createdAt: string;
   category: string;
-  destaque: boolean;
+  cost: number;
   photos: [
     {
       id: string;
@@ -23,24 +21,20 @@ export interface Product {
 
 interface CreateProductProps {
   name: string;
-  description: string;
   price: number;
-  points: number;
+  cost: number;
   amount: number;
   photos: File[];
   category: string;
-  destaque: boolean;
 }
 
 interface UpdateProductProps {
   id: string;
   name?: string;
-  description?: string;
   price?: number;
-  points?: number;
   amount?: number;
-  destaque?: boolean;
   category?: string;
+  cost?: number;
 }
 
 interface PhotosProps {
@@ -59,13 +53,11 @@ export const getProducts = async (): Promise<Product[]> => {
     return {
       id: product.id,
       name: product.name,
-      description: product.description,
       price: product.price,
       slug: product.slug,
       amount: product.amount,
-      points: product.points,
       photos: product.photos,
-      destaque: product.destaque,
+      cost: product.cost,
       category: product.category,
       createdAt: new Date(product.createdAt).toLocaleDateString('pt-BR', {
         day: '2-digit',
@@ -114,10 +106,8 @@ export async function createProduct(product: CreateProductProps) {
   formData.append('name', product.name);
   formData.append('price', product.price.toString());
   formData.append('amount', product.amount.toString());
-  formData.append('description', product.description);
-  formData.append('points', product.points.toString());
   formData.append('category', product.category.toString());
-  formData.append('destaque', product.destaque.toString());
+  formData.append('cost', product.cost.toString());
 
   product.photos.forEach(file => {
     formData.append('photos', file);

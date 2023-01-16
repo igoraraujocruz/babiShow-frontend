@@ -16,7 +16,6 @@ import Head from 'next/head';
 import { Input } from '../../components/Form/Input';
 import { useAuth } from '../../services/hooks/useAuth';
 import { withSSRGuest } from '../../utils/WithSSRGuest';
-import { ForgotPasswordModal } from '../../components/Modais/ForgotPasswordModal';
 
 type SignInFormData = {
   username: string;
@@ -56,7 +55,7 @@ function Login() {
   return (
     <>
       <Head>
-        <title>Admin | Snap</title>
+        <title>Admin | Cacau-Show</title>
       </Head>
       <Flex
         flexDir="column"
@@ -103,8 +102,6 @@ function Login() {
           >
             Entrar
           </Button>
-
-          <ForgotPasswordModal />
         </Flex>
       </Flex>
     </>

@@ -6,6 +6,7 @@ interface Product {
   id: string;
   name: string;
   price: number;
+  cost: number;
 }
 
 interface Order {
@@ -27,7 +28,7 @@ interface Shop {
   typeOfPayment: string;
   referenceId: string;
   createdAt: string;
-  paid: boolean;
+  amountPaid: number;
   status: string;
 }
 
@@ -40,7 +41,7 @@ export const getShop = async (): Promise<Shop[]> => {
       client: shop.client,
       order: shop.order,
       typeOfPayment: shop.typeOfPayment,
-      paid: shop.paid,
+      amountPaid: shop.amountPaid,
       status: shop.status,
       createdAt: new Date(shop.createdAt).toLocaleDateString('pt-BR', {
         day: '2-digit',
@@ -59,11 +60,11 @@ export function useShop() {
   return useQuery(['shop'], () => getShop());
 }
 
-export async function updateStatus(shopId: string, status: string) {
-  await api.patch('/shop', {
-    shopId,
-    status,
+export async function createCredit(clientId: string, value: number) {
+  await api.post('/credits', {
+    clientId,
+    value,
   });
 
-  queryClient.invalidateQueries('shop');
+  queryClient.invalidateQueries('client');
 }

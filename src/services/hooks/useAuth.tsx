@@ -36,8 +36,8 @@ export const AuthContext = createContext({} as AuthContextData);
 let authChannel: BroadcastChannel;
 
 export function signOut() {
-  destroyCookie(undefined, 'snap.token', { path: '/' });
-  destroyCookie(undefined, 'snap.refreshToken', { path: '/' });
+  destroyCookie(undefined, 'babi.token', { path: '/' });
+  destroyCookie(undefined, 'babi.refreshToken', { path: '/' });
 
   authChannel?.postMessage('signOut');
 
@@ -62,7 +62,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   useEffect(() => {
-    const { 'snap.token': token } = parseCookies();
+    const { 'babi.token': token } = parseCookies();
 
     if (token) {
       api
@@ -86,12 +86,12 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     const { token, refreshToken, user } = response.data;
 
-    setCookie(undefined, 'snap.token', token, {
+    setCookie(undefined, 'babi.token', token, {
       maxAge: 60 * 60 * 24 * 30,
       path: '/',
     });
 
-    setCookie(undefined, 'snap.refreshToken', refreshToken, {
+    setCookie(undefined, 'babi.refreshToken', refreshToken, {
       maxAge: 60 * 60 * 24 * 30,
       path: '/',
     });
@@ -108,7 +108,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       Router.push('/painelAdm');
     }
 
-    Router.push('/painelSeller');
+    Router.push('/');
   }
 
   return (

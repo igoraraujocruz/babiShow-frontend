@@ -17,7 +17,7 @@ export function setupAPIClient(ctx = undefined) {
         ? 'http://localhost:3333'
         : 'https://api.zaycon.shop',
     headers: {
-      Authorization: `Bearer ${cookies['snap.token']}`,
+      Authorization: `Bearer ${cookies['babi.token']}`,
     },
   });
 
@@ -30,7 +30,7 @@ export function setupAPIClient(ctx = undefined) {
         if (error.response.data.message === 'Invalid JWT token') {
           cookies = parseCookies(ctx);
 
-          const { 'snap.refreshToken': refreshToken } = cookies;
+          const { 'babi.refreshToken': refreshToken } = cookies;
 
           const originalConfig = error.config;
           if (!isRefreshing) {
@@ -40,14 +40,14 @@ export function setupAPIClient(ctx = undefined) {
               .then(response => {
                 const { token } = response.data;
 
-                setCookie(ctx, 'snap.token', token, {
+                setCookie(ctx, 'babi.token', token, {
                   maxAge: 60 * 60 * 24 * 30,
                   path: '/',
                 });
 
                 setCookie(
                   ctx,
-                  'snap.refreshToken',
+                  'babi.refreshToken',
                   response.data.refreshToken,
                   {
                     maxAge: 60 * 60 * 24 * 30,

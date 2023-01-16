@@ -11,7 +11,7 @@ export function withSSRGuest<P>(fn: GetServerSideProps<P>) {
   ): Promise<GetServerSidePropsResult<P>> => {
     const cookies = parseCookies(ctx);
 
-    if (cookies['snap.token']) {
+    if (cookies['babi.token']) {
       return {
         redirect: {
           destination: '/painelAdm',
