@@ -48,7 +48,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const [cart, setCart] = useState<Product[]>(() => {
     if (typeof window !== 'undefined') {
-      const storagedCart = localStorage.getItem('@RocketShoes:cart');
+      const storagedCart = localStorage.getItem('babi-show:cart');
 
       if (storagedCart) {
         return JSON.parse(storagedCart);
@@ -68,7 +68,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   useEffect(() => {
     if (cartPreviousValue !== cart) {
-      localStorage.setItem('@RocketShoes:cart', JSON.stringify(cart));
+      localStorage.setItem('babi-show:cart', JSON.stringify(cart));
     }
   }, [cart, cartPreviousValue]);
 

@@ -174,6 +174,7 @@ const BagModal: ForwardRefRenderFunction<IBagModal> = (props, ref) => {
     <Flex>
       <Box cursor="pointer" onClick={onOpen} zIndex={2}>
         <Flex flexDir="column" justify="center" align="center" fill="white">
+          <p>{cart?.length}</p>
           <BsBag size={40} />
         </Flex>
       </Box>
