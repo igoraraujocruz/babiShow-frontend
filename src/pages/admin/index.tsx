@@ -65,7 +65,7 @@ function Login() {
         justify="center"
       >
         <Flex alignItems="center">
-          <Heading>Zaycon</Heading>
+          <Heading>Adm Chocolate</Heading>
         </Flex>
         <Flex
           onSubmit={handleSubmit(handleSignIn)}
