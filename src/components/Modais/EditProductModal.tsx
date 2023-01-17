@@ -185,12 +185,8 @@ const DetailsProductModal: ForwardRefRenderFunction<
       <DeleteModal ref={deleteModalRef} photoId={photoId} />
       <Modal size="xs" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent bg="gray.900">
-          <ModalCloseButton
-            bg="orange"
-            _hover={{ bg: 'orangeHover' }}
-            color="#fff"
-          />
+        <ModalContent bg="color-bg">
+          <ModalCloseButton size="lg" _hover={{ bg: 'none' }} />
           <ModalHeader />
           <ModalBody>
             <Flex flexDir={['column']} justify="space-between">
@@ -207,20 +203,21 @@ const DetailsProductModal: ForwardRefRenderFunction<
                       _hover={{
                         borderColor: 'none',
                       }}
-                      focusBorderColor="#FF6B00"
+                      bg="color-input-bg"
+                      focusBorderColor="none"
                       border="0.13rem solid"
-                      borderColor="gray.600"
+                      borderColor="color-input-bg"
                       w="12rem"
                       {...register('category')}
                     >
                       <option
-                        style={{ background: '#181B23' }}
+                        style={{ background: '#D5BDAF' }}
                         value="televisoes"
                       >
                         Barras
                       </option>
                       <option
-                        style={{ background: '#181B23' }}
+                        style={{ background: '#D5BDAF' }}
                         value="informatica"
                       >
                         Trufas
@@ -260,17 +257,16 @@ const DetailsProductModal: ForwardRefRenderFunction<
                   />
                 </Stack>
                 <Button
-                  bg="#FF6B00"
-                  _hover={{ bg: 'orangeHover' }}
+                  bg="color-input-bg"
+                  _hover={{ bg: 'none' }}
                   type="submit"
                   mt="6"
-                  colorScheme="orange"
                   size="lg"
                 >
                   Salvar
                 </Button>
               </Flex>
-              <Flex flexDir="column" mt={['2rem']} bg="gray.800">
+              <Flex flexDir="column" mt={['2rem']} bg="color-input-bg">
                 <Flex justify="center" w="100%" align="center" h="2rem">
                   {!isLoading && isFetching && <Spinner size="md" />}
                 </Flex>
@@ -339,8 +335,9 @@ const DetailsProductModal: ForwardRefRenderFunction<
                       <Button
                         type="submit"
                         disabled={!inputFileRef.current?.images.length && true}
-                        bg="orange"
-                        _hover={{ bg: 'orangeHover' }}
+                        bg="color-icons"
+                        color="#fff"
+                        _hover={{ bg: 'color-icons' }}
                         size="lg"
                       >
                         Upload

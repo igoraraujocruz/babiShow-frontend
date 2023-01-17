@@ -78,11 +78,11 @@ const DeleteModal: ForwardRefRenderFunction<
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent bg="gray.900">
+      <ModalContent bg="color-input-bg">
         <ModalHeader fontSize="1.5rem" fontWeight="normal">
           Tem certeza que deseja deletar?
         </ModalHeader>
-        <ModalCloseButton color="#fff" />
+        <ModalCloseButton _hover={{ bg: 'none' }} />
         <ModalBody>
           <Text>Não será possível recuperar depois.</Text>
         </ModalBody>
@@ -91,7 +91,7 @@ const DeleteModal: ForwardRefRenderFunction<
           <Button
             bg="transparent"
             fontWeight="normal"
-            _hover={{ bg: '#ff0118' }}
+            _hover={{ bg: '#ff0118', color: '#fff' }}
             mr={3}
             onClick={deleteObject}
           >
@@ -100,7 +100,7 @@ const DeleteModal: ForwardRefRenderFunction<
           <Button
             fontWeight="normal"
             bg="transparent"
-            _hover={{ bg: 'orange' }}
+            _hover={{ bg: 'color-icons', color: '#fff' }}
             mr={3}
             onClick={onClose}
           >
