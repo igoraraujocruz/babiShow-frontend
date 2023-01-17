@@ -1,4 +1,4 @@
-import { Flex, Stack } from '@chakra-ui/react';
+import { Flex, Heading, Stack } from '@chakra-ui/react';
 import Head from 'next/head';
 import { Clients } from '../components/Clients';
 import { Products } from '../components/Products';
@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <Flex>
       <Head>
-        <title>Painel Adm | Cacau-Show</title>
+        <title>Painel Adm | BabiOx</title>
       </Head>
       <Flex w="100%" h="100vh" flexDir="column" align="center">
         <Stack

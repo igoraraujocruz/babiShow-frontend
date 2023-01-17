@@ -91,7 +91,7 @@ export const Clients = () => {
   };
 
   return (
-    <Flex flexDir="column" align="flex-end" w="100%" mr="1rem">
+    <Flex flexDir="column" align="center" w="100%">
       <DetailsClientsShop client={client} ref={modalDetailsAllShop} />
 
       <BsPerson cursor="pointer" size={45} onClick={() => onOpen()} />
