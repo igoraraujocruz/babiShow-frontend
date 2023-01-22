@@ -212,15 +212,18 @@ const DetailsProductModal: ForwardRefRenderFunction<
                     >
                       <option
                         style={{ background: '#D5BDAF' }}
-                        value="televisoes"
+                        value="tabletes"
                       >
-                        Barras
+                        Tabletes
+                      </option>
+                      <option style={{ background: '#D5BDAF' }} value="trufas">
+                        Trufas
                       </option>
                       <option
-                        style={{ background: '#D5BDAF' }}
-                        value="informatica"
+                        style={{ background: 'color-input-bg' }}
+                        value="drageados"
                       >
-                        Trufas
+                        Drageados
                       </option>
                     </Select>
                   </FormControl>

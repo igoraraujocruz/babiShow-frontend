@@ -169,15 +169,21 @@ const CreateProductModal: ForwardRefRenderFunction<
                 >
                   <option
                     style={{ background: 'color-input-bg' }}
-                    value="barras"
+                    value="tabletes"
                   >
-                    Barras
+                    Tabletes
                   </option>
                   <option
                     style={{ background: 'color-input-bg' }}
                     value="trufas"
                   >
                     Trufas
+                  </option>
+                  <option
+                    style={{ background: 'color-input-bg' }}
+                    value="drageados"
+                  >
+                    Drageados
                   </option>
                 </Select>
               </FormControl>
